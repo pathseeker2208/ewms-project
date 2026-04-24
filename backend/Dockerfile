@@ -20,5 +20,5 @@ COPY --from=build /app/target/*.jar app.jar
 # Expose port (can be overridden by environment variable but Render/Railway usually auto-detect)
 EXPOSE 8080
 
-# Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Run the application with memory limits for Render free tier
+ENTRYPOINT ["java", "-Xmx300m", "-Xss512k", "-XX:CICompilerCount=2", "-Dserver.port=${PORT:8080}", "-jar", "app.jar"]
