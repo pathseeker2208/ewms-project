@@ -4,6 +4,7 @@ import com.ewms.security.jwt.AuthEntryPointJwt;
 import com.ewms.security.jwt.AuthTokenFilter;
 import com.ewms.security.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,10 +22,15 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 @EnableMethodSecurity
 public class WebSecurityConfig {
+
+    @Value("${frontend.url:}")
+    private String frontendUrl;
 
     @Autowired
     UserDetailsServiceImpl userDetailsService;
@@ -76,15 +82,17 @@ public class WebSecurityConfig {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         
-        String frontendUrl = System.getenv("FRONTEND_URL");
+        List<String> allowedOrigins = new ArrayList<>(Arrays.asList(
+            "http://localhost:5173",
+            "http://localhost:5174"
+        ));
         if (frontendUrl != null && !frontendUrl.isEmpty()) {
-            configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://localhost:5174", frontendUrl));
-        } else {
-            configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://localhost:5174")); // Vite default ports
+            allowedOrigins.add(frontendUrl);
         }
+        configuration.setAllowedOrigins(allowedOrigins);
         
-        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
