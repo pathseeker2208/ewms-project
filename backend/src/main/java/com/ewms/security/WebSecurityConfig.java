@@ -81,16 +81,9 @@ public class WebSecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        
-        List<String> allowedOrigins = new ArrayList<>(Arrays.asList(
-            "http://localhost:5173",
-            "http://localhost:5174"
-        ));
-        if (frontendUrl != null && !frontendUrl.isEmpty()) {
-            allowedOrigins.add(frontendUrl);
-        }
-        configuration.setAllowedOrigins(allowedOrigins);
-        
+        // Using allowedOriginPatterns with credentials is the recommended approach
+        // It reflects the actual request origin in the header, satisfying CORS + credentials
+        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
