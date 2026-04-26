@@ -2,6 +2,7 @@ package com.ewms.controller;
 
 import com.ewms.entity.Project;
 import com.ewms.entity.User;
+import com.ewms.entity.Role;
 import com.ewms.repository.ProjectRepository;
 import com.ewms.repository.UserRepository;
 import com.ewms.security.services.UserDetailsImpl;
@@ -42,7 +43,8 @@ public class ProjectController {
         } else if (role.equals("ROLE_MANAGER")) {
             return projectRepository.findByOwnerId(userDetails.getId());
         } else {
-            return projectRepository.findProjectsByAssigneeId(userDetails.getId());
+            // Employee: Can view projects created by Managers
+            return projectRepository.findByOwner_Role(Role.ROLE_MANAGER);
         }
     }
 

@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long> {
+    List<Project> findByOwnerId(Long ownerId);
     List<Project> findByOwner_Role(com.ewms.entity.Role role);
     
     @Query("SELECT DISTINCT p FROM Project p JOIN Task t ON t.project = p WHERE t.assignee.id = :userId")
