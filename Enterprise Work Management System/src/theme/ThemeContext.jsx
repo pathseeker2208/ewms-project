@@ -19,6 +19,14 @@ export const CustomThemeProvider = ({ children }) => {
     []
   );
 
+  useEffect(() => {
+    if (mode === 'dark') {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+  }, [mode]);
+
   const theme = useMemo(
     () =>
       createTheme({
@@ -29,6 +37,10 @@ export const CustomThemeProvider = ({ children }) => {
           },
           secondary: {
             main: '#dc004e',
+          },
+          background: {
+            default: mode === 'dark' ? '#16171d' : '#fff',
+            paper: mode === 'dark' ? '#1f2028' : '#fff',
           },
         },
       }),
