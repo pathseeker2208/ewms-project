@@ -7,7 +7,7 @@ import { ColorModeContext } from '../theme/ThemeContext';
 import { useSelector } from 'react-redux';
 
 const Settings = () => {
-  const { toggleColorMode } = useContext(ColorModeContext);
+  const { toggleColorMode, mode } = useContext(ColorModeContext);
   const { user } = useSelector((state) => state.auth);
   const { register, handleSubmit } = useForm({
     defaultValues: {
@@ -30,7 +30,7 @@ const Settings = () => {
       <Paper sx={{ p: 3, maxWidth: 600, mb: 3 }}>
         <Typography variant="h6" gutterBottom>Appearance</Typography>
         <FormControlLabel
-          control={<Switch onChange={toggleColorMode} />}
+          control={<Switch checked={mode === 'dark'} onChange={toggleColorMode} />}
           label="Toggle Dark Mode"
         />
       </Paper>

@@ -1,7 +1,7 @@
 import React, { createContext, useState, useMemo, useEffect } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-export const ColorModeContext = createContext({ toggleColorMode: () => {} });
+export const ColorModeContext = createContext({ toggleColorMode: () => {}, mode: 'light' });
 
 export const CustomThemeProvider = ({ children }) => {
   const [mode, setMode] = useState(localStorage.getItem('themeMode') || 'light');
@@ -36,7 +36,7 @@ export const CustomThemeProvider = ({ children }) => {
   );
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
+    <ColorModeContext.Provider value={{ ...colorMode, mode }}>
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ColorModeContext.Provider>
   );
