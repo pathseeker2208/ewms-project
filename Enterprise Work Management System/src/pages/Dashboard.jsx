@@ -133,12 +133,12 @@ const Dashboard = () => {
                 <Typography variant="h6" gutterBottom>
                   Project Progress
                 </Typography>
-                <Box sx={{ width: '100%', height: '100%', overflowX: 'auto', overflowY: 'hidden' }}>
+                <Box sx={{ width: '100%', height: '100%', overflowX: 'auto', overflowY: 'hidden', pb: 2 }}>
                   <Box sx={{ minWidth: Math.max(300, chartData.length * 150), height: '100%' }}>
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart
                         data={chartData}
-                        margin={{ top: 5, right: 30, left: 20, bottom: isMobile ? 80 : 40 }}
+                        margin={{ top: 5, right: 30, left: 20, bottom: 60 }}
                       >
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis 
@@ -146,7 +146,7 @@ const Dashboard = () => {
                           interval={0} 
                           angle={-45} 
                           textAnchor="end"
-                          height={isMobile ? 100 : 60}
+                          height={80}
                         />
                         <YAxis />
                         <Tooltip />
