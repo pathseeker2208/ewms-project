@@ -26,7 +26,6 @@ import {
   People as PeopleIcon,
   ExitToApp as LogoutIcon,
   Settings as SettingsIcon,
-  RocketLaunch as RocketIcon,
 } from '@mui/icons-material';
 import { logout } from '../store/slices/authSlice';
 import SockJS from 'sockjs-client';
@@ -89,10 +88,9 @@ const MainLayout = (props) => {
 
   const drawer = (
     <div>
-      <Toolbar sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-        <RocketIcon sx={{ color: 'primary.main', fontSize: 28 }} />
-        <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 'bold', letterSpacing: 1 }}>
-          EWMS <span style={{ color: '#3f51b5' }}>PRO</span>
+      <Toolbar>
+        <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 'bold' }}>
+          EWMS
         </Typography>
       </Toolbar>
       <Divider />
@@ -157,9 +155,8 @@ const MainLayout = (props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
-            <RocketIcon sx={{ display: { xs: 'flex', sm: 'none' } }} />
-            Enterprise Work Management
+          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
+            Enterprise Work Management System
           </Typography>
           <div>
             <IconButton
