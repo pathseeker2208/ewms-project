@@ -94,7 +94,7 @@ const Dashboard = () => {
 
         {/* Recent Activity */}
         <Grid item xs={12} lg={4}>
-          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: isMobile ? 300 : 400 }}>
+          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: isMobile ? 350 : 450 }}>
             <Typography variant="h6" gutterBottom>
               Recent Activity
             </Typography>
@@ -129,34 +129,38 @@ const Dashboard = () => {
         <Grid item xs={12} lg={8}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={isMedium ? 12 : 7}>
-              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: isMobile ? 300 : 400 }}>
+              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: isMobile ? 350 : 450 }}>
                 <Typography variant="h6" gutterBottom>
                   Project Progress
                 </Typography>
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart
-                    data={chartData}
-                    margin={{ top: 5, right: 30, left: 20, bottom: isMobile ? 60 : 20 }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis 
-                      dataKey="name" 
-                      interval={0} 
-                      angle={isMobile ? -45 : 0} 
-                      textAnchor={isMobile ? "end" : "middle"}
-                      height={isMobile ? 80 : 30}
-                    />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend verticalAlign="top" height={36}/>
-                    <Bar dataKey="Tasks" fill="#8884d8" />
-                    <Bar dataKey="Completed" fill="#82ca9d" />
-                  </BarChart>
-                </ResponsiveContainer>
+                <Box sx={{ width: '100%', height: '100%', overflowX: 'auto', overflowY: 'hidden' }}>
+                  <Box sx={{ minWidth: Math.max(300, chartData.length * 150), height: '100%' }}>
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart
+                        data={chartData}
+                        margin={{ top: 5, right: 30, left: 20, bottom: isMobile ? 80 : 40 }}
+                      >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis 
+                          dataKey="name" 
+                          interval={0} 
+                          angle={-45} 
+                          textAnchor="end"
+                          height={isMobile ? 100 : 60}
+                        />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend verticalAlign="top" height={36}/>
+                        <Bar dataKey="Tasks" fill="#8884d8" barSize={40} />
+                        <Bar dataKey="Completed" fill="#82ca9d" barSize={40} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </Box>
+                </Box>
               </Paper>
             </Grid>
             <Grid item xs={12} md={isMedium ? 12 : 5}>
-              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: isMobile ? 300 : 400 }}>
+              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: isMobile ? 350 : 450 }}>
                 <Typography variant="h6" gutterBottom>
                   Task Status Breakdown
                 </Typography>

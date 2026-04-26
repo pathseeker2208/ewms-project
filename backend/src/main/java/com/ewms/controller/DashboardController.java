@@ -78,18 +78,28 @@ public class DashboardController {
         }
         response.setProjectProgress(progress);
 
-        // Status Breakdown for pie chart
+        // Status Breakdown for pie chart - Ensure all standard statuses are present
+        List<String> allStatuses = Arrays.asList("TODO", "IN_PROGRESS", "REVIEW", "DONE", "BUG", "FEATURE", "IMPROVEMENT");
         List<Map<String, Object>> breakdown = new ArrayList<>();
         Map<String, Long> statusCounts = new HashMap<>();
+        
+        // Initialize all to 0
+        for (String s : allStatuses) statusCounts.put(s, 0L);
+        
         for (Task t : relevantTasks) {
-            statusCounts.put(t.getStatus(), statusCounts.getOrDefault(t.getStatus(), 0L) + 1);
+            String status = t.getStatus();
+            if (status != null) {
+                statusCounts.put(status, statusCounts.getOrDefault(status, 0L) + 1);
+            }
         }
         
         statusCounts.forEach((status, count) -> {
-            Map<String, Object> map = new HashMap<>();
-            map.put("name", status);
-            map.put("value", count);
-            breakdown.add(map);
+            if (count > 0) { // Only show active ones in the pie, but we have the counts for all
+                Map<String, Object> map = new HashMap<>();
+                map.put("name", status);
+                map.put("value", count);
+                breakdown.add(map);
+            }
         });
         response.setStatusBreakdown(breakdown);
 
