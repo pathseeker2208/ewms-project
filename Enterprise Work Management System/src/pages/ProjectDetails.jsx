@@ -19,6 +19,7 @@ import ProjectService from '../api/project.service';
 import TaskService from '../api/task.service';
 import UserService from '../api/user.service';
 import TaskDetailsModal from '../components/TaskDetailsModal';
+import TaskItem from '../components/TaskItem';
 
 const COLUMNS = {
   TODO: 'To Do',
@@ -141,18 +142,11 @@ const ProjectDetails = () => {
                     {tasks[columnId].map((task, index) => (
                       <Draggable key={task.id.toString()} draggableId={task.id.toString()} index={index}>
                         {(provided) => (
-                          <Paper
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            sx={{ p: 2, mb: 2, bgcolor: 'white', cursor: 'pointer' }}
-                            onClick={() => setSelectedTask(task)}
-                          >
-                            <Typography variant="subtitle1">{task.title}</Typography>
-                            <Typography variant="body2" color="text.secondary">
-                              {task.type} • {task.priority}
-                            </Typography>
-                          </Paper>
+                          <TaskItem 
+                            task={task} 
+                            provided={provided} 
+                            onClick={() => setSelectedTask(task)} 
+                          />
                         )}
                       </Draggable>
                     ))}

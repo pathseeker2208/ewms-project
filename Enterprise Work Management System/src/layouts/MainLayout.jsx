@@ -18,6 +18,7 @@ import {
   Menu,
   MenuItem,
   Avatar,
+  Badge,
 } from '@mui/material';
 import {
   Menu as MenuIcon,
@@ -26,6 +27,9 @@ import {
   People as PeopleIcon,
   ExitToApp as LogoutIcon,
   Settings as SettingsIcon,
+  RocketLaunch as RocketIcon,
+  Assessment as AssessmentIcon,
+  Notifications as NotificationsIcon,
 } from '@mui/icons-material';
 import { logout } from '../store/slices/authSlice';
 import SockJS from 'sockjs-client';
@@ -38,6 +42,8 @@ const MainLayout = (props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [notiAnchorEl, setNotiAnchorEl] = useState(null);
+  const [notifications, setNotifications] = useState([]);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -61,6 +67,9 @@ const MainLayout = (props) => {
     navigate('/login');
   };
 
+  const handleNotiOpen = (event) => setNotiAnchorEl(event.currentTarget);
+  const handleNotiClose = () => setNotiAnchorEl(null);
+
   useEffect(() => {
     if (!user) return;
 
@@ -70,6 +79,11 @@ const MainLayout = (props) => {
       onConnect: () => {
         client.subscribe('/topic/notifications', (message) => {
           if (message.body) {
+            setNotifications(prev => [{
+              id: Date.now(),
+              text: message.body,
+              time: new Date().toLocaleTimeString()
+            }, ...prev].slice(0, 5));
             toast.info(message.body);
           }
         });
@@ -109,6 +123,14 @@ const MainLayout = (props) => {
               <ProjectIcon />
             </ListItemIcon>
             <ListItemText primary="Projects" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton onClick={() => navigate('/reports')}>
+            <ListItemIcon>
+              <AssessmentIcon />
+            </ListItemIcon>
+            <ListItemText primary="Reports" />
           </ListItemButton>
         </ListItem>
         {user?.roles?.includes('ROLE_ADMIN') && (
@@ -158,7 +180,31 @@ const MainLayout = (props) => {
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             Enterprise Work Management System
           </Typography>
-          <div>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <IconButton color="inherit" onClick={handleNotiOpen}>
+              <Badge badgeContent={notifications.length} color="error">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+            <Menu
+              anchorEl={notiAnchorEl}
+              open={Boolean(notiAnchorEl)}
+              onClose={handleNotiClose}
+              PaperProps={{ sx: { width: 300, maxHeight: 400 } }}
+            >
+              <Typography variant="subtitle2" sx={{ p: 2 }}>Recent Notifications</Typography>
+              <Divider />
+              {notifications.length === 0 ? (
+                <MenuItem onClick={handleNotiClose}>No new notifications</MenuItem>
+              ) : (
+                notifications.map((n) => (
+                  <MenuItem key={n.id} onClick={handleNotiClose} sx={{ whiteSpace: 'normal' }}>
+                    <ListItemText primary={n.text} secondary={n.time} />
+                  </MenuItem>
+                ))
+              )}
+            </Menu>
+            <div>
             <IconButton
               size="large"
               aria-label="account of current user"
