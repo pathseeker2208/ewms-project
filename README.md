@@ -1,52 +1,86 @@
-# Enterprise Work Management System
+# EWMS PRO | Enterprise Work Management System
 
-This is a full-stack Enterprise Work Management System built using Spring Boot (Backend) and React (Frontend). 
+A full-stack Enterprise Work Management System built using **Spring Boot** (Backend) and **React** (Frontend). This system supports secure authentication, role-based access control, real-time collaboration, and data analytics.
 
-## Features
-- **Role-Based Access Control**: Admin, Manager, and Employee roles.
-- **Projects & Tasks**: Kanban board with drag-and-drop capability.
-- **Real-Time Collaboration**: Live task comments, attachments, and WebSocket-powered toast notifications.
-- **Dashboard & Analytics**: Recharts integration for visual task metrics.
-- **Activity Feed**: Live activity tracking for system events.
-- **Theming**: Dark/Light mode toggling with persisted local storage.
+## 🔗 Hosted Links
+- **Frontend (Netlify):** [https://enterpriseworkmanagementsystem.netlify.app](https://enterpriseworkmanagementsystem.netlify.app)
+- **Backend (Railway):** [https://ewms-project-production.up.railway.app](https://ewms-project-production.up.railway.app)
 
-## How to Run
+---
 
-### Backend (Spring Boot)
-1. Ensure you have Java 17 and MySQL installed and running.
-2. The database configurations are located in `src/main/resources/application.properties` (Default pass: `mysql123`).
-3. Open a terminal and navigate to the `backend` folder.
-4. Run the server:
-   ```bash
-   mvn spring-boot:run
-   ```
-   *Note: On the first run, the `DataSeeder` will automatically populate the database with demo users, projects, and tasks.*
+## 🚀 Features
+- **Role-Based Access Control**: Granular permissions for Admin, Manager, and Employee roles.
+- **Projects & Tasks**: Full Kanban board with drag-and-drop capability.
+- **Real-Time Collaboration**: WebSocket-powered toast notifications and live updates.
+- **Reporting & Analytics**: Comprehensive data visualization with interactive charts.
+- **Activity Feed**: System-wide audit log of user actions.
+- **Dark Mode**: Persistent theme toggling.
 
-### Frontend (React/Vite)
-1. Open a new terminal and navigate to the `Enterprise Work Management System` folder.
-2. Install dependencies (if you haven't already):
-   ```bash
-   npm install --legacy-peer-deps
-   ```
-3. Run the development server:
-   ```bash
-   npm run dev
-   ```
-4. Open the provided `localhost` link in your browser.
+---
 
-## Demo Credentials
-The database has been seeded with the following users for testing purposes.
+## 🛠️ Tech Stack & Libraries
+### Frontend
+- **Core:** React 18 (Hooks), Vite, React Router v6.
+- **UI:** Material-UI (MUI), TailwindCSS (for custom utilities).
+- **State:** Redux Toolkit (Auth), Context API (Theming).
+- **Forms:** React Hook Form, Yup Validation.
+- **Charts:** Recharts.
+- **Real-time:** SockJS, StompJS.
+- **DND:** @hello-pangea/dnd.
+- **Feedback:** React Toastify.
 
-| Name | Email | Password | Role |
-| :--- | :--- | :--- | :--- |
-| Abhijit Behera | abhijit@test.com | admin123 | **ADMIN** |
-| Rajesh Kumar Jena | rajesh@test.com | manager123 | **MANAGER** |
-| Aditya Kiran Pati | aditya@test.com | manager123 | **MANAGER** |
-| Kunal KUmar | kunal@test.com | emp123 | EMPLOYEE |
-| Jeevanjyoti Sahoo | jeevanjyoti@test.com | emp123 | EMPLOYEE |
-| Sudeep Dehury | sudeep@test.com | emp123 | EMPLOYEE |
-| Akanshya Pradhan | akanshya@test.com | emp123 | EMPLOYEE |
-| Harish Sahoo | harish@test.com | emp123 | EMPLOYEE |
-| Laxmidhar Ojha | laxmidhar@test.com | emp123 | EMPLOYEE |
+### Backend
+- **Core:** Spring Boot 3, Java 17, Spring Security.
+- **Database:** MySQL, Spring Data JPA.
+- **Auth:** JWT (JSON Web Tokens).
+- **Communication:** Spring WebSocket + STOMP.
 
-*Note: Only Admins and Managers have the ability to create new projects. Admins have exclusive access to the Users management page.*
+---
+
+## 🏁 How to Run Locally
+
+### Backend
+1. Navigate to the `backend` folder.
+2. Ensure MySQL is running and update `application.properties` with your credentials.
+3. Run: `mvn spring-boot:run`
+4. *DataSeeder will automatically populate demo data on first run.*
+
+### Frontend
+1. Navigate to the `Enterprise Work Management System` folder.
+2. Install dependencies: `npm install --legacy-peer-deps`
+3. Start dev server: `npm run dev`
+
+---
+
+## 🧪 Testing
+- **Unit Tests:** Run `npm test` to execute component and slice tests.
+- **Integration Test:** `AppFlow.test.jsx` verifies the entire Login-to-Dashboard flow.
+
+---
+
+## 📷 Screenshots
+
+| Dashboard | Projects List |
+| :---: | :---: |
+| ![Dashboard](./Enterprise%20Work%20Management%20System/screenshots/dashboard.png) | ![Projects](./Enterprise%20Work%20Management%20System/screenshots/projects.png) |
+
+| Kanban Board | Reports & Analytics |
+| :---: | :---: |
+| ![Kanban](./Enterprise%20Work%20Management%20System/screenshots/kanban.png) | ![Reports](./Enterprise%20Work%20Management%20System/screenshots/reports.png) |
+
+| Users Management (Admin) |
+| :---: |
+| ![Users](./Enterprise%20Work%20Management%20System/screenshots/users.png) |
+
+---
+
+## 👤 Demo Credentials
+
+| Role | Email | Password |
+| :--- | :--- | :--- |
+| **Admin** | `abhijit@test.com` | `admin123` |
+| **Manager** | `rajesh@test.com` | `manager123` |
+| **Employee** | `kunal@test.com` | `emp123` |
+
+---
+*Created by Abhijit Behera | Enterprise Work Management System Project*
