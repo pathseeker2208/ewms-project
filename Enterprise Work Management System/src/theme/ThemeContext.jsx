@@ -4,7 +4,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 export const ColorModeContext = createContext({ toggleColorMode: () => {}, mode: 'light' });
 
 export const CustomThemeProvider = ({ children }) => {
-  const [mode, setMode] = useState(localStorage.getItem('themeMode') || 'light');
+  const [mode, setMode] = useState(() => localStorage.getItem('themeMode') || 'light');
 
   const colorMode = useMemo(
     () => ({
@@ -15,17 +15,10 @@ export const CustomThemeProvider = ({ children }) => {
           return newMode;
         });
       },
+      mode,
     }),
-    []
+    [mode]
   );
-
-  useEffect(() => {
-    if (mode === 'dark') {
-      document.body.classList.add('dark-mode');
-    } else {
-      document.body.classList.remove('dark-mode');
-    }
-  }, [mode]);
 
   const theme = useMemo(
     () =>
@@ -33,22 +26,35 @@ export const CustomThemeProvider = ({ children }) => {
         palette: {
           mode,
           primary: {
-            main: '#1976d2',
+            main: '#3f51b5', // A nicer Indigo
           },
           secondary: {
-            main: '#dc004e',
+            main: '#f50057',
           },
           background: {
-            default: mode === 'dark' ? '#16171d' : '#fff',
-            paper: mode === 'dark' ? '#1f2028' : '#fff',
+            default: mode === 'dark' ? '#0a1929' : '#f4f6f8',
+            paper: mode === 'dark' ? '#112233' : '#ffffff',
+          },
+        },
+        components: {
+          MuiPaper: {
+            styleOverrides: {
+              root: {
+                backgroundImage: 'none',
+              },
+            },
           },
         },
       }),
     [mode]
   );
 
+  useEffect(() => {
+    document.body.style.backgroundColor = theme.palette.background.default;
+  }, [theme]);
+
   return (
-    <ColorModeContext.Provider value={{ ...colorMode, mode }}>
+    <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ColorModeContext.Provider>
   );
