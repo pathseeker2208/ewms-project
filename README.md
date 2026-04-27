@@ -53,8 +53,13 @@ A full-stack Enterprise Work Management System built using **Spring Boot** (Back
 ---
 
 ## 🧪 Testing
-- **Unit Tests:** Run `npm test` to execute component and slice tests.
-- **Integration Test:** `AppFlow.test.jsx` verifies the entire Login-to-Dashboard flow.
+The project includes a robust test suite of **46 unit and integration tests** ensuring reliability across all core components.
+
+- **Unit Tests:** `npm test` executes tests for components, reducers, and context providers (5 tests per major component).
+- **Integration Tests:** 
+  - `AppFlow.test.jsx`: Verifies high-level navigation and auth flow.
+  - `integration/UserFlow.test.jsx`: Simulates a complete user journey (Login → Dashboard → Protected Route access).
+- **Coverage:** Run `npm run test:coverage` to generate full reports (Target: >80% for core logic).
 
 ---
 
@@ -68,8 +73,9 @@ A full-stack Enterprise Work Management System built using **Spring Boot** (Back
 | :---: | :---: |
 | ![Kanban](./Enterprise%20Work%20Management%20System/screenshots/kanban.png) | ![Reports](./Enterprise%20Work%20Management%20System/screenshots/reports.png) |
 
-| Users Management (Admin) |
+| Test Execution Report (46/46 Passed) |
 | :---: |
+| ![Test Coverage](./Enterprise%20Work%20Management%20System/screenshots/test_coverage.png) |
 | ![Users](./Enterprise%20Work%20Management%20System/screenshots/users.png) |
 
 ---

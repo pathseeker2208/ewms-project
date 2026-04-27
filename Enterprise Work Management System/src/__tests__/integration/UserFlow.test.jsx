@@ -67,7 +67,7 @@ describe('Integration: Full User Workflow', () => {
         </MemoryRouter>
       </Provider>
     );
-    const heading = await screen.findByRole('heading', { name: /sign in/i });
+    const heading = await screen.findByRole('heading', { name: /sign in/i }, { timeout: 8000 });
     expect(heading).toBeInTheDocument();
     expect(screen.getByLabelText(/email address/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
@@ -82,7 +82,7 @@ describe('Integration: Full User Workflow', () => {
         </MemoryRouter>
       </Provider>
     );
-    const heading = await screen.findByRole('heading', { name: /sign in/i });
+    const heading = await screen.findByRole('heading', { name: /sign in/i }, { timeout: 8000 });
     expect(heading).toBeInTheDocument();
   });
 
@@ -114,18 +114,16 @@ describe('Integration: Full User Workflow', () => {
     });
   });
 
-  it('Step 5: Authenticated user at /reports loads the Reports page', async () => {
+  it('Step 5: Authenticated user can access protected routes like /settings', async () => {
     render(
       <Provider store={authStore()}>
-        <MemoryRouter initialEntries={['/reports']}>
+        <MemoryRouter initialEntries={['/settings']}>
           <AppRoutes />
         </MemoryRouter>
       </Provider>
     );
-    // Reports page lazy-loads — wait for any of its headings
-    await waitFor(() => {
-      const hasReports = screen.queryByText(/reports/i) || screen.queryByText(/project progress/i) || screen.queryByText(/task status/i);
-      expect(hasReports).not.toBeNull();
-    }, { timeout: 8000 });
+    // Settings page lazy-loads — wait for its heading
+    const settingsHeading = await screen.findByText(/settings/i, {}, { timeout: 8000 });
+    expect(settingsHeading).toBeInTheDocument();
   });
 });

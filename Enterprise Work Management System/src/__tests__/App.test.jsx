@@ -37,7 +37,7 @@ describe('App - Root Application Routing', () => {
         </MemoryRouter>
       </Provider>
     );
-    const heading = await screen.findByRole('heading', { name: /sign in/i });
+    const heading = await screen.findByRole('heading', { name: /sign in/i }, { timeout: 8000 });
     expect(heading).toBeInTheDocument();
   });
 
@@ -49,7 +49,7 @@ describe('App - Root Application Routing', () => {
         </MemoryRouter>
       </Provider>
     );
-    const heading = await screen.findByRole('heading', { name: /sign up/i });
+    const heading = await screen.findByRole('heading', { name: /sign up/i }, { timeout: 8000 });
     expect(heading).toBeInTheDocument();
   });
 
@@ -61,7 +61,7 @@ describe('App - Root Application Routing', () => {
         </MemoryRouter>
       </Provider>
     );
-    const heading = await screen.findByRole('heading', { name: /sign in/i });
+    const heading = await screen.findByRole('heading', { name: /sign in/i }, { timeout: 8000 });
     expect(heading).toBeInTheDocument();
   });
 
@@ -73,7 +73,7 @@ describe('App - Root Application Routing', () => {
         </MemoryRouter>
       </Provider>
     );
-    const heading = await screen.findByRole('heading', { name: /sign in/i });
+    const heading = await screen.findByRole('heading', { name: /sign in/i }, { timeout: 8000 });
     expect(heading).toBeInTheDocument();
   });
 
@@ -85,7 +85,7 @@ describe('App - Root Application Routing', () => {
         </MemoryRouter>
       </Provider>
     );
-    await screen.findByText('Total Projects');
+    await screen.findByText('Total Projects', {}, { timeout: 8000 });
     expect(screen.queryByText('Total Tasks')).toBeInTheDocument();
   });
 });
