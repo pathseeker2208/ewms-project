@@ -37,6 +37,36 @@ A full-stack Enterprise Work Management System built using **Spring Boot** (Back
 
 ---
 
+## 📂 Project Structure
+
+### Frontend (`/Enterprise Work Management System`)
+- `src/api/`: Axios instances and service layers for Projects, Tasks, and Users.
+- `src/components/`: Reusable UI components (Kanban Board, Task Modals, Protected Routes).
+- `src/pages/`: Main application views (Dashboard, Analytics, User Management).
+- `src/store/`: Redux Toolkit configuration and slices.
+- `src/theme/`: Material-UI theme and Dark Mode context.
+- `src/__tests__/`: Comprehensive unit and integration test suites.
+
+### Backend (`/backend`)
+- `com.ewms.entity/`: JPA entities (Project, Task, User, ActivityLog).
+- `com.ewms.controller/`: REST endpoints for all core modules.
+- `com.ewms.service/`: Business logic and transaction management.
+- `com.ewms.config/`: Security (JWT), WebSocket (STOMP), and DataSeeding.
+
+---
+
+## 📡 API Overview
+
+| Endpoint | Method | Description |
+| :--- | :--- | :--- |
+| `/api/auth/**` | POST | Login, Signup, and Token refresh. |
+| `/api/projects/**` | GET/POST/PUT | Project management & CRUD. |
+| `/api/tasks/**` | GET/POST/PUT | Task lifecycle & board positions. |
+| `/api/users/**` | GET/PUT/DELETE| Admin user management & profile updates. |
+| `/api/dashboard/**`| GET | Analytics and system metrics. |
+
+---
+
 ## 🏁 How to Run Locally
 
 ### Backend
@@ -72,7 +102,7 @@ The project includes a robust test suite of **66 unit and integration tests** en
 | :---: | :---: |
 | ![Kanban](./Enterprise%20Work%20Management%20System/screenshots/kanban.png) | ![Reports](./Enterprise%20Work%20Management%20System/screenshots/reports.png) |
 
-| Test Execution Report (46/46 Passed) |
+| Test Execution Report (66/66 Passed) |
 | :---: |
 | ![Test Coverage](./Enterprise%20Work%20Management%20System/screenshots/test_coverage.png) |
 | ![Users](./Enterprise%20Work%20Management%20System/screenshots/users.png) |

@@ -1,100 +1,121 @@
 # Enterprise Work Management System
 
-A modular, scalable, and production-ready Work Management System built with React, Spring Boot, and MySQL.
+A full-stack Enterprise Work Management System built using **Spring Boot** (Backend) and **React** (Frontend). This system supports secure authentication, role-based access control, real-time collaboration, and data analytics.
+
+## 🔗 Hosted Links
+- **Frontend (Netlify):** [https://enterpriseworkmanagementsystem.netlify.app](https://enterpriseworkmanagementsystem.netlify.app)
+- **Backend (Railway):** [https://ewms-project-production.up.railway.app](https://ewms-project-production.up.railway.app)
+
+---
 
 ## 🚀 Features
-
-### 1. User Authentication & Roles
-- **JWT-based Auth:** Secure login and registration.
-- **RBAC (Role-Based Access Control):** 
-  - **Admin:** Full system access, user management, and task override.
-  - **Manager:** Create/manage projects and tasks; visibility over team progress.
-  - **Employee:** Personal task management and contribution to assigned projects.
-- **Protected Routes:** Unauthorized access prevention.
-
-### 2. Interactive Dashboard
-- **Real-time Metrics:** Quick overview of projects, total tasks, and completion rates.
-- **Dynamic Charts:** Visual breakdown of task statuses and project progress using `recharts`.
-- **Activity Feed:** Live audit log of system actions.
-
-### 3. Project & Task Management
-- **Kanban Board:** Full drag-and-drop experience using `@hello-pangea/dnd`.
-- **Advanced Task Attributes:** Statuses (Todo, In Progress, Review, Done), Types (Bug, Feature, Improvement), and Priorities.
-- **Attachments & Comments:** Collaboration features built into every task.
-
-### 4. Reporting & Analytics
-- **Dedicated Reporting Module:** Detailed project health metrics.
-- **Data Export:** Export project data to CSV for offline analysis.
-
-### 5. Notifications System
-- **WebSockets:** Real-time toast notifications for system-wide updates.
-- **Notification History:** Access recent alerts via a dedicated panel in the header.
-
-### 6. Settings & Personalization
-- **Dark/Light Theme:** Persistent theme switching using `localStorage`.
-- **Profile Management:** Update personal details and manage security.
+- **Role-Based Access Control**: Granular permissions for Admin, Manager, and Employee roles.
+- **Projects & Tasks**: Full Kanban board with drag-and-drop capability.
+- **Real-Time Collaboration**: WebSocket-powered toast notifications and live updates.
+- **Reporting & Analytics**: Comprehensive data visualization with interactive charts.
+- **Activity Feed**: System-wide audit log of user actions.
+- **Dark Mode**: Persistent theme toggling.
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Tech Stack & Libraries
+### Frontend
+- **Core:** React 18 (Hooks), Vite, React Router v6.
+- **UI:** Material-UI (MUI), TailwindCSS (for custom utilities).
+- **State:** Redux Toolkit (Auth), Context API (Theming).
+- **Forms:** React Hook Form, Yup Validation.
+- **Charts:** Recharts.
+- **Real-time:** SockJS, StompJS.
+- **DND:** @hello-pangea/dnd.
+- **Feedback:** React Toastify.
 
-- **Frontend:** React 18, Vite, Material-UI (MUI), Redux Toolkit.
-- **State Management:** Redux Toolkit for global state, Context API for theming.
-- **Routing:** React Router v6 with Protected Routes and Lazy Loading.
-- **API Integration:** Axios with global interceptors for auth and error handling.
-- **Forms:** React Hook Form + Yup for robust validation.
-- **Real-time:** StompJS + SockJS for WebSocket connectivity.
-- **Testing:** Jest + React Testing Library (Unit & Integration tests).
+### Backend
+- **Core:** Spring Boot 3, Java 17, Spring Security.
+- **Database:** MySQL, Spring Data JPA.
+- **Auth:** JWT (JSON Web Tokens).
+- **Communication:** Spring WebSocket + STOMP.
 
 ---
 
-## 📦 Deployment
+## 📂 Project Structure
 
-- **Frontend:** Hosted on Netlify: [https://enterpriseworkmanagementsystem.netlify.app](https://enterpriseworkmanagementsystem.netlify.app)
-- **Backend:** Hosted on Railway: [https://ewms-project-production.up.railway.app](https://ewms-project-production.up.railway.app)
-- **Database:** Managed MySQL instance on Railway.
+### Frontend (`/Enterprise Work Management System`)
+- `src/api/`: Axios instances and service layers for Projects, Tasks, and Users.
+- `src/components/`: Reusable UI components (Kanban Board, Task Modals, Protected Routes).
+- `src/pages/`: Main application views (Dashboard, Analytics, User Management).
+- `src/store/`: Redux Toolkit configuration and slices.
+- `src/theme/`: Material-UI theme and Dark Mode context.
+- `src/__tests__/`: Comprehensive unit and integration test suites.
+
+### Backend (`/backend`)
+- `com.ewms.entity/`: JPA entities (Project, Task, User, ActivityLog).
+- `com.ewms.controller/`: REST endpoints for all core modules.
+- `com.ewms.service/`: Business logic and transaction management.
+- `com.ewms.config/`: Security (JWT), WebSocket (STOMP), and DataSeeding.
+
+---
+
+## 📡 API Overview
+
+| Endpoint | Method | Description |
+| :--- | :--- | :--- |
+| `/api/auth/**` | POST | Login, Signup, and Token refresh. |
+| `/api/projects/**` | GET/POST/PUT | Project management & CRUD. |
+| `/api/tasks/**` | GET/POST/PUT | Task lifecycle & board positions. |
+| `/api/users/**` | GET/PUT/DELETE| Admin user management & profile updates. |
+| `/api/dashboard/**`| GET | Analytics and system metrics. |
+
+---
+
+## 🏁 How to Run Locally
+
+### Backend
+1. Navigate to the `backend` folder.
+2. Ensure MySQL is running and update `application.properties` with your credentials.
+3. Run: `mvn spring-boot:run`
+4. *DataSeeder will automatically populate demo data on first run.*
+
+### Frontend
+1. Navigate to the current folder.
+2. Install dependencies: `npm install --legacy-peer-deps`
+3. Start dev server: `npm run dev`
 
 ---
 
 ## 🧪 Testing
+The project includes a robust test suite of **66 unit and integration tests** ensuring reliability across all core components.
 
-The project includes comprehensive test coverage:
-- **Unit Tests:** 5+ tests covering Redux slices, Context providers, and UI components.
-- **Integration Test:** `AppFlow.test.jsx` simulates the full user journey (Login -> Dashboard -> Projects).
-
-Run tests locally:
-```bash
-npm test
-```
-
----
-
-## 🏁 Getting Started
-
-1. **Clone the repo:**
-   ```bash
-   git clone https://github.com/pathseeker2208/ewms-project.git
-   ```
-2. **Install dependencies:**
-   ```bash
-   cd "Enterprise Work Management System"
-   npm install
-   ```
-3. **Set Environment Variables:**
-   Create a `.env` file with `VITE_API_URL` and `VITE_WS_URL`.
-4. **Run Dev Server:**
-   ```bash
-   npm run dev
-   ```
+- **Unit Tests:** `npm test` executes tests for components, reducers, and context providers (5+ tests per major component).
+- **Integration Tests:** 
+  - `UserFlow.test.jsx`: Simulates a complete user journey (Login → Dashboard → Protected Route access).
+- **Coverage:** Run `npm run test:coverage` to generate full reports (Achieved: **>70%** total coverage).
 
 ---
 
 ## 📷 Screenshots
 
-| Dashboard | Kanban Board |
+| Dashboard | Projects List |
 | :---: | :---: |
-| ![Dashboard](https://via.placeholder.com/400x250?text=Dashboard) | ![Kanban](https://via.placeholder.com/400x250?text=Kanban) |
+| ![Dashboard](./screenshots/dashboard.png) | ![Projects](./screenshots/projects.png) |
 
-| Reports | Settings |
+| Kanban Board | Reports & Analytics |
 | :---: | :---: |
-| ![Reports](https://via.placeholder.com/400x250?text=Reports) | ![Settings](https://via.placeholder.com/400x250?text=Settings) |
+| ![Kanban](./screenshots/kanban.png) | ![Reports](./screenshots/reports.png) |
+
+| Test Execution Report (66/66 Passed) |
+| :---: |
+| ![Test Coverage](./screenshots/test_coverage.png) |
+| ![Users](./screenshots/users.png) |
+
+---
+
+## 👤 Demo Credentials
+
+| Role | Email | Password |
+| :--- | :--- | :--- |
+| **Admin** | `abhijit@test.com` | `admin123` |
+| **Manager** | `rajesh@test.com` | `manager123` |
+| **Employee** | `kunal@test.com` | `emp123` |
+
+---
+*Created by Abhijit Behera | Enterprise Work Management System Project*
