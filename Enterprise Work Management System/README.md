@@ -1,4 +1,4 @@
-# EWMS PRO | Enterprise Work Management System
+# Enterprise Work Management System
 
 A modular, scalable, and production-ready Work Management System built with React, Spring Boot, and MySQL.
 

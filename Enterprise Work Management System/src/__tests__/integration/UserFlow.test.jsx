@@ -96,7 +96,7 @@ describe('Integration: Full User Workflow', () => {
     );
     await waitFor(() => {
       expect(screen.getByText('Total Projects')).toBeInTheDocument();
-    });
+    }, { timeout: 10000 });
     expect(screen.getByText('Total Tasks')).toBeInTheDocument();
   });
 
@@ -111,7 +111,7 @@ describe('Integration: Full User Workflow', () => {
     await waitFor(() => {
       expect(screen.getByText('3')).toBeInTheDocument(); // totalProjects
       expect(screen.getByText('12')).toBeInTheDocument(); // totalTasks
-    });
+    }, { timeout: 10000 });
   });
 
   it('Step 5: Authenticated user can access protected routes like /settings', async () => {

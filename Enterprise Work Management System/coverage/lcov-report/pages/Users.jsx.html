@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -160,28 +160,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -200,7 +198,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -213,7 +213,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -241,26 +241,26 @@ import {
 import UserService from '../api/user.service';
 import { format } from 'date-fns';
 &nbsp;
-const Users = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-  const [users, setUsers] = <span class="cstat-no" title="statement not covered" >useState([]);</span>
+const Users = () =&gt; {
+  const [users, setUsers] = useState([]);
 &nbsp;
-  const fetchUsers = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    UserService.getAllUsers().then(<span class="fstat-no" title="function not covered" >re</span>s =&gt; <span class="cstat-no" title="statement not covered" >setUsers(res.data))</span>.catch(console.error);</span>
+  const fetchUsers = () =&gt; {
+    UserService.getAllUsers().then(res =&gt; setUsers(res.data)).catch(console.error);
   };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    fetchUsers();</span>
+  useEffect(() =&gt; {
+    fetchUsers();
   }, []);
 &nbsp;
-  const handleDelete = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(i</span>d) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (window.confirm("Are you sure you want to delete this user?")) {</span>
-<span class="cstat-no" title="statement not covered" >      UserService.deleteUser(id).then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        fetchUsers();</span>
+  const handleDelete = (id) =&gt; {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      UserService.deleteUser(id).then(() =&gt; {
+        fetchUsers();
       }).catch(console.error);
     }
   };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;Box&gt;
       &lt;Typography variant="h4" gutterBottom&gt;
         User Management
@@ -280,8 +280,8 @@ const Users = <span class="cstat-no" title="statement not covered" ><span class=
             &lt;/TableRow&gt;
           &lt;/TableHead&gt;
           &lt;TableBody&gt;
-            {users.map(<span class="fstat-no" title="function not covered" >(u</span>ser) =&gt; (
-<span class="cstat-no" title="statement not covered" >              &lt;TableRow</span>
+            {users.map((user) =&gt; (
+              &lt;TableRow
                 key={user.id}
                 sx={{ '&amp;:last-child td, &amp;:last-child th': { border: 0 } }}
               &gt;
@@ -294,7 +294,7 @@ const Users = <span class="cstat-no" title="statement not covered" ><span class=
                 &lt;TableCell&gt;{user.status}&lt;/TableCell&gt;
                 &lt;TableCell&gt;{user.lastActivity ? format(new Date(user.lastActivity), 'PPp') : 'N/A'}&lt;/TableCell&gt;
                 &lt;TableCell align="right"&gt;
-                  &lt;Button color="error" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >handleDelete(user.id)}</span>&gt;Delete&lt;/Button&gt;
+                  &lt;Button color="error" onClick={() =&gt; handleDelete(user.id)}&gt;Delete&lt;/Button&gt;
                 &lt;/TableCell&gt;
               &lt;/TableRow&gt;
             ))}
@@ -313,7 +313,7 @@ export default Users;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-04-27T16:26:44.868Z
+                at 2026-04-27T16:47:06.420Z
             </div>
         <script src="../prettify.js"></script>
         <script>

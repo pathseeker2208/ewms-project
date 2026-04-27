@@ -1,4 +1,4 @@
-# EWMS PRO | Enterprise Work Management System
+# Enterprise Work Management System
 
 A full-stack Enterprise Work Management System built using **Spring Boot** (Backend) and **React** (Frontend). This system supports secure authentication, role-based access control, real-time collaboration, and data analytics.
 
@@ -53,13 +53,12 @@ A full-stack Enterprise Work Management System built using **Spring Boot** (Back
 ---
 
 ## 🧪 Testing
-The project includes a robust test suite of **46 unit and integration tests** ensuring reliability across all core components.
+The project includes a robust test suite of **66 unit and integration tests** ensuring reliability across all core components.
 
-- **Unit Tests:** `npm test` executes tests for components, reducers, and context providers (5 tests per major component).
+- **Unit Tests:** `npm test` executes tests for components, reducers, and context providers (5+ tests per major component).
 - **Integration Tests:** 
-  - `AppFlow.test.jsx`: Verifies high-level navigation and auth flow.
-  - `integration/UserFlow.test.jsx`: Simulates a complete user journey (Login → Dashboard → Protected Route access).
-- **Coverage:** Run `npm run test:coverage` to generate full reports (Target: >80% for core logic).
+  - `UserFlow.test.jsx`: Simulates a complete user journey (Login → Dashboard → Protected Route access).
+- **Coverage:** Run `npm run test:coverage` to generate full reports (Achieved: **>70%** total coverage).
 
 ---
 
