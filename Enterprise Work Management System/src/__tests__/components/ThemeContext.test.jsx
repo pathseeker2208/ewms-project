@@ -1,15 +1,13 @@
 import React, { useContext } from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { CustomThemeProvider, ColorModeContext } from '../../theme/ThemeContext';
-import { useTheme } from '@mui/material/styles';
 
-const TestComponent = () => {
-  const { toggleColorMode } = useContext(ColorModeContext);
-  const theme = useTheme();
-
+// Helper component that consumes the ColorModeContext
+const ThemeConsumer = () => {
+  const { mode, toggleColorMode } = useContext(ColorModeContext);
   return (
     <div>
-      <span data-testid="mode">{theme.palette.mode}</span>
+      <span data-testid="mode">{mode}</span>
       <button onClick={toggleColorMode}>Toggle</button>
     </div>
   );
@@ -20,27 +18,54 @@ describe('ThemeContext', () => {
     localStorage.clear();
   });
 
-  it('renders with default light theme', () => {
+  it('provides "light" as the default theme mode', () => {
     render(
       <CustomThemeProvider>
-        <TestComponent />
+        <ThemeConsumer />
       </CustomThemeProvider>
     );
-
-    expect(screen.getByTestId('mode')).toHaveTextContent('light');
+    expect(screen.getByTestId('mode').textContent).toBe('light');
   });
 
-  it('toggles theme correctly', () => {
+  it('toggles from light to dark when toggleColorMode is called', () => {
     render(
       <CustomThemeProvider>
-        <TestComponent />
+        <ThemeConsumer />
       </CustomThemeProvider>
     );
+    fireEvent.click(screen.getByRole('button', { name: /toggle/i }));
+    expect(screen.getByTestId('mode').textContent).toBe('dark');
+  });
 
-    const button = screen.getByRole('button', { name: 'Toggle' });
-    fireEvent.click(button);
+  it('toggles back to light from dark on second click', () => {
+    render(
+      <CustomThemeProvider>
+        <ThemeConsumer />
+      </CustomThemeProvider>
+    );
+    const btn = screen.getByRole('button', { name: /toggle/i });
+    fireEvent.click(btn); // → dark
+    fireEvent.click(btn); // → light
+    expect(screen.getByTestId('mode').textContent).toBe('light');
+  });
 
-    expect(screen.getByTestId('mode')).toHaveTextContent('dark');
+  it('persists theme preference in localStorage with key "themeMode"', () => {
+    render(
+      <CustomThemeProvider>
+        <ThemeConsumer />
+      </CustomThemeProvider>
+    );
+    fireEvent.click(screen.getByRole('button', { name: /toggle/i }));
     expect(localStorage.getItem('themeMode')).toBe('dark');
+  });
+
+  it('reads persisted "dark" theme from localStorage on initial render', () => {
+    localStorage.setItem('themeMode', 'dark');
+    render(
+      <CustomThemeProvider>
+        <ThemeConsumer />
+      </CustomThemeProvider>
+    );
+    expect(screen.getByTestId('mode').textContent).toBe('dark');
   });
 });

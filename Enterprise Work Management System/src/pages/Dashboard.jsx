@@ -43,8 +43,8 @@ const Dashboard = () => {
         completedTasks: data.completedTasks,
         pendingTasks: data.pendingTasks,
       });
-      setChartData(data.projectProgress);
-      setPieData(data.statusBreakdown);
+      setChartData(data.projectProgress || []);
+      setPieData(data.statusBreakdown || []);
     }).catch(error => console.error("Error fetching dashboard metrics", error));
 
     api.get('/activity').then((res) => {

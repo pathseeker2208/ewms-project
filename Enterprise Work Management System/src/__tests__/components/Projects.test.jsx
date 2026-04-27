@@ -10,8 +10,10 @@ jest.mock('../../api/project.service');
 
 const mockStore = configureStore([]);
 
-const renderProjectsWithStore = (storeState) => {
-  const store = mockStore(storeState);
+const renderProjects = (roles = ['ROLE_EMPLOYEE']) => {
+  const store = mockStore({
+    auth: { user: { id: 1, name: 'Test User', roles } },
+  });
   return render(
     <Provider store={store}>
       <MemoryRouter>
@@ -21,41 +23,45 @@ const renderProjectsWithStore = (storeState) => {
   );
 };
 
+const projectsMock = [
+  { id: 1, name: 'Alpha Project', description: 'First project', status: 'IN_PROGRESS' },
+  { id: 2, name: 'Beta Project', description: 'Second project', status: 'COMPLETED' },
+];
+
+beforeEach(() => {
+  ProjectService.getAllProjects.mockResolvedValue({ data: projectsMock });
+});
+
+afterEach(() => jest.clearAllMocks());
+
 describe('Projects Component', () => {
-  beforeEach(() => {
-    ProjectService.getAllProjects.mockResolvedValue({
-      data: [
-        { id: 1, name: 'Project Alpha', description: 'Desc Alpha', status: 'IN_PROGRESS' },
-      ]
-    });
+  it('renders the Projects page heading', async () => {
+    renderProjects();
+    const heading = await screen.findByText(/projects/i);
+    expect(heading).toBeInTheDocument();
   });
 
-  afterEach(() => {
-    jest.clearAllMocks();
+  it('displays list of projects fetched from API', async () => {
+    renderProjects();
+    expect(await screen.findByText('Alpha Project')).toBeInTheDocument();
+    expect(await screen.findByText('Beta Project')).toBeInTheDocument();
   });
 
-  it('renders project list correctly', async () => {
-    renderProjectsWithStore({ auth: { user: { roles: ['ROLE_EMPLOYEE'] } } });
+  it('shows project description', async () => {
+    renderProjects();
+    expect(await screen.findByText('First project')).toBeInTheDocument();
+  });
 
+  it('hides "New Project" button for Employee role', async () => {
+    renderProjects(['ROLE_EMPLOYEE']);
+    await screen.findByText('Alpha Project');
+    expect(screen.queryByRole('button', { name: /new project/i })).not.toBeInTheDocument();
+  });
+
+  it('shows "New Project" button for Manager role', async () => {
+    renderProjects(['ROLE_MANAGER']);
     await waitFor(() => {
-      expect(screen.getByText('Project Alpha')).toBeInTheDocument();
-      expect(screen.getByText('Desc Alpha')).toBeInTheDocument();
-    });
-  });
-
-  it('hides New Project button for employees', async () => {
-    renderProjectsWithStore({ auth: { user: { roles: ['ROLE_EMPLOYEE'] } } });
-
-    await waitFor(() => {
-      expect(screen.queryByRole('button', { name: /New Project/i })).not.toBeInTheDocument();
-    });
-  });
-
-  it('shows New Project button for managers', async () => {
-    renderProjectsWithStore({ auth: { user: { roles: ['ROLE_MANAGER'] } } });
-
-    await waitFor(() => {
-      expect(screen.getByRole('button', { name: /New Project/i })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /new project/i })).toBeInTheDocument();
     });
   });
 });
